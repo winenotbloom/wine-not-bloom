@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wine Not Bloom | Wine & Floral Curation Dublin</title>
+    <title>Wine Not Bloom | Curated Wine & Floral Experiences</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #F9F7F2; }
+        body { font-family: 'Inter', sans-serif; background-color: #F9F7F2; scroll-behavior: smooth; }
         h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
         .bg-bordeaux { background-color: #4A0E0E; }
         .text-bordeaux { color: #4A0E0E; }
@@ -18,7 +18,7 @@
 </head>
 <body>
 
-    <nav class="p-6 flex justify-between items-center bg-cream border-b border-stone-200">
+    <nav class="p-6 flex justify-between items-center bg-cream border-b border-stone-200 sticky top-0 z-50">
         <div class="text-2xl font-bold text-bordeaux tracking-tighter uppercase">Wine Not Bloom</div>
         <div class="hidden md:flex space-x-8 text-sm uppercase tracking-widest text-moss">
             <a href="#experience" class="hover:text-bordeaux transition">Experience</a>
@@ -27,73 +27,70 @@
         </div>
     </nav>
 
-    <header class="relative h-[80vh] flex items-center justify-center text-center px-4 overflow-hidden">
+    <header class="relative h-[85vh] flex items-center justify-center text-center px-4 overflow-hidden">
         <div class="absolute inset-0 z-0">
             <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&q=80&w=2070" class="w-full h-full object-cover opacity-30" alt="Wine and Flowers">
         </div>
         <div class="relative z-10 max-w-3xl">
-            <span class="text-moss uppercase tracking-[0.3em] text-sm mb-4 block">Based in Dublin</span>
+            <span class="text-moss uppercase tracking-[0.3em] text-sm mb-4 block italic">Curated Botanics & Spirits</span>
             <h1 class="text-5xl md:text-7xl text-bordeaux mb-6 leading-tight">Where the notes of a vintage meet the scent of a bloom.</h1>
-            <p class="text-lg text-stone-600 mb-8 italic">Curated wine and floral pairings delivered as a complete centerpiece. Elevate your gifting experience.</p>
-            <a href="https://wa.me/353851152527" class="bg-bordeaux text-white px-10 py-4 rounded-full hover:bg-opacity-90 transition duration-300 inline-block uppercase tracking-widest text-xs">Order via WhatsApp</a>
+            <p class="text-lg text-stone-600 mb-8 italic">Ready-to-display wine and floral pairings for life's most poetic moments.</p>
+            <a href="https://wa.me/353851152527" class="bg-bordeaux text-white px-10 py-4 rounded-full hover:bg-opacity-90 transition duration-300 inline-block uppercase tracking-widest text-xs font-bold shadow-lg">Order via WhatsApp</a>
         </div>
     </header>
 
     <section id="experience" class="py-24 px-8 bg-white">
         <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-16 items-center">
             <div>
-                <h2 class="text-4xl text-moss mb-6 leading-snug">The perfect sensory harmony for the moments that matter.</h2>
-                <div class="space-y-4 text-stone-600 leading-relaxed">
+                <h2 class="text-4xl text-moss mb-6 leading-snug italic">The perfect sensory harmony.</h2>
+                <div class="space-y-4 text-stone-600 leading-relaxed text-lg">
                     <p>Why choose between a bouquet and a bottle? At <strong>Wine Not Bloom</strong>, we believe the elegance of a fine wine is <strong>perfectly complemented</strong> by the organic beauty of seasonal flowers.</p>
                     <p>Our arrangements are designed to be "table-ready"—not just a gift, but a curated centerpiece that transforms any home into a celebration of taste and aesthetics.</p>
+                    <p class="text-bordeaux font-semibold pt-4 border-t border-stone-100 italic">✨ Please note: Orders must be placed at least 72 hours in advance to ensure the perfection of your experience.</p>
                 </div>
             </div>
             <div class="grid grid-cols-2 gap-4">
-                <div class="h-64 bg-stone-200 rounded-lg overflow-hidden">
+                <div class="h-64 bg-stone-100 rounded-lg overflow-hidden shadow-sm">
                     <img src="https://images.unsplash.com/photo-1528938102132-4a9276b8e320?auto=format&fit=crop&q=80" class="w-full h-full object-cover" alt="Floral detail">
                 </div>
-                <div class="h-64 bg-stone-200 mt-8 rounded-lg overflow-hidden">
+                <div class="h-64 bg-stone-100 mt-8 rounded-lg overflow-hidden shadow-sm">
                     <img src="https://images.unsplash.com/photo-1553361371-9bb220269788?auto=format&fit=crop&q=80" class="w-full h-full object-cover" alt="Wine glass">
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="collection" class="py-24 px-8 bg-cream">
+    <section id="collection" class="py-24 px-8 bg-cream border-y border-stone-200">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-16">
-                <h2 class="text-4xl text-bordeaux mb-4">Our Signature Pairings</h2>
-                <p class="text-stone-500 italic">Hand-selected bottles, artisan-designed blooms.</p>
+                <h2 class="text-4xl text-bordeaux mb-4 italic">Our Signature Pairings</h2>
+                <p class="text-stone-500 tracking-widest uppercase text-xs">Hand-selected bottles • Artisan-designed blooms</p>
             </div>
 
             <div class="grid md:grid-cols-3 gap-12">
-                <div class="group cursor-pointer">
-                    <div class="aspect-[3/4] overflow-hidden mb-6 rounded-sm">
-                        <img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&q=80" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" alt="The Celebration Kit">
+                <div class="group text-center">
+                    <div class="aspect-[3/4] overflow-hidden mb-6 rounded-sm shadow-md">
+                        <img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&q=80" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" alt="The Celebration">
                     </div>
-                    <h3 class="text-2xl text-moss mb-2 text-center uppercase tracking-tighter">The Celebration</h3>
-                    <p class="text-sm text-stone-500 text-center mb-4 italic leading-relaxed">Sparkling Prosecco paired with vibrant, joyful white and yellow lilies.</p>
+                    <h3 class="text-2xl text-moss mb-2 serif italic">The Celebration</h3>
+                    <p class="text-sm text-stone-500">Sparkling Prosecco paired with vibrant lilies.</p>
                 </div>
 
-                <div class="group cursor-pointer">
-                    <div class="aspect-[3/4] overflow-hidden mb-6 rounded-sm">
-                        <img src="https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?auto=format&fit=crop&q=80" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" alt="The Romance Kit">
+                <div class="group text-center">
+                    <div class="aspect-[3/4] overflow-hidden mb-6 rounded-sm shadow-md">
+                        <img src="https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?auto=format&fit=crop&q=80" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" alt="The Romance">
                     </div>
-                    <h3 class="text-2xl text-moss mb-2 text-center uppercase tracking-tighter">The Romance</h3>
-                    <p class="text-sm text-stone-500 text-center mb-4 italic leading-relaxed">Deep Red Malbec surrounded by a dramatic bed of velvet red roses.</p>
+                    <h3 class="text-2xl text-moss mb-2 serif italic">The Romance</h3>
+                    <p class="text-sm text-stone-500">Deep Malbec with velvet red roses.</p>
                 </div>
 
-                <div class="group cursor-pointer">
-                    <div class="aspect-[3/4] overflow-hidden mb-6 rounded-sm">
-                        <img src="https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&q=80" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" alt="The Gratitude Kit">
+                <div class="group text-center">
+                    <div class="aspect-[3/4] overflow-hidden mb-6 rounded-sm shadow-md">
+                        <img src="https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&q=80" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" alt="The Gratitude">
                     </div>
-                    <h3 class="text-2xl text-moss mb-2 text-center uppercase tracking-tighter">The Gratitude</h3>
-                    <p class="text-sm text-stone-500 text-center mb-4 italic leading-relaxed">Crisp Sauvignon Blanc harmonized with soft, calming eucalyptus and white hydrangeas.</p>
+                    <h3 class="text-2xl text-moss mb-2 serif italic">The Gratitude</h3>
+                    <p class="text-sm text-stone-500">Sauvignon Blanc with fresh eucalyptus.</p>
                 </div>
-            </div>
-
-            <div class="mt-16 text-center">
-                <a href="https://wa.me/353851152527" class="inline-block border border-bordeaux text-bordeaux px-12 py-4 rounded-full hover:bg-bordeaux hover:text-white transition duration-300 uppercase tracking-widest text-xs font-bold">Inquire via WhatsApp</a>
             </div>
         </div>
     </section>
@@ -102,23 +99,21 @@
         <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-12 text-center md:text-left">
             <div>
                 <h4 class="text-xl mb-6 font-bold uppercase tracking-widest">Wine Not Bloom</h4>
-                <p class="text-stone-300 text-sm leading-relaxed">Bespoke wine and floral design for those who appreciate the art of gifting.</p>
+                <p class="text-stone-300 text-sm">Bespoke wine and floral design for those who appreciate the art of gifting.</p>
             </div>
             <div>
-                <h4 class="text-xl mb-6 font-bold uppercase tracking-widest">Delivery Details</h4>
-                <p class="text-stone-300 text-sm leading-relaxed">Serving Greater Dublin & County Wicklow.<br>Please note: Orders must be placed at least 72 hours in advance to ensure the freshness of your blooms.</p>
+                <h4 class="text-xl mb-6 font-bold uppercase tracking-widest">Orders</h4>
+                <p class="text-stone-300 text-sm italic">72 hours advance notice required.</p>
+                <p class="text-stone-300 text-sm mt-2">Fragile delivery options available.</p>
             </div>
             <div>
                 <h4 class="text-xl mb-6 font-bold uppercase tracking-widest">Contact</h4>
-                <p class="text-stone-300 text-sm">winenotbloom@gmail.com<br>WhatsApp: +353 83 187 5501</p>
-                <div class="mt-6 flex justify-center md:justify-start space-x-4 opacity-70">
-                    <span class="text-xs tracking-widest uppercase">Instagram</span>
-                    <span class="text-xs tracking-widest uppercase">Facebook</span>
-                </div>
+                <p class="text-stone-300 text-sm mb-4">
+                    Email: <a href="mailto:winenotbloom@gmail.com" class="underline">winenotbloom@gmail.com</a><br>
+                    WhatsApp: <a href="https://wa.me/353851152527" class="underline">+353 85 115 2527</a>
+                </p>
+                <a href="https://www.instagram.com/winenotbloom/" target="_blank" class="text-xs tracking-widest uppercase border border-cream/30 px-4 py-2 hover:bg-cream hover:text-moss transition">Instagram</a>
             </div>
-        </div>
-        <div class="mt-20 pt-8 border-t border-white/10 text-center text-[10px] uppercase tracking-widest opacity-40">
-            © 2026 Wine Not Bloom. All Rights Reserved.
         </div>
     </footer>
 
