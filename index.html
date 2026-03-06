@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wine Not Bloom | Curated Wine & Floral Experiences</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #F9F7F2; scroll-behavior: smooth; }
         h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
@@ -13,109 +13,223 @@
         .text-bordeaux { color: #4A0E0E; }
         .bg-moss { background-color: #3E4C33; }
         .text-moss { color: #3E4C33; }
-        .bg-cream { background-color: #F9F7F2; }
+        
+        /* Flip Card Animation */
+        .flip-card { background-color: transparent; perspective: 1000px; height: 450px; }
+        .flip-card-inner { position: relative; width: 100%; height: 100%; text-align: center; transition: transform 0.8s; transform-style: preserve-3d; cursor: pointer; }
+        .flip-card:hover .flip-card-inner, .flip-card.active .flip-card-inner { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; -webkit-backface-visibility: hidden; backface-visibility: hidden; border-radius: 4px; overflow: hidden; }
+        .flip-card-back { background-color: #F1ECE3; color: #4A0E0E; transform: rotateY(180deg); display: flex; flex-direction: column; justify-content: center; padding: 20px; border: 1px solid #4A0E0E; }
+
+        /* Custom Tabs */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .tab-btn.active { border-bottom: 2px solid #4A0E0E; color: #4A0E0E; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <nav class="p-6 flex justify-between items-center bg-cream border-b border-stone-200 sticky top-0 z-50">
+    <audio id="bgMusic" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-thejazzpiano.mp3" type="audio/mpeg">
+    </audio>
+    <button onclick="toggleMusic()" class="fixed bottom-6 right-6 z-[100] bg-white p-3 rounded-full shadow-lg border border-stone-200 text-xs uppercase tracking-tighter flex items-center gap-2">
+        <span id="musicIcon">🔈</span> <span id="musicStatus">Music On</span>
+    </button>
+
+    <nav class="p-6 flex justify-between items-center bg-[#F9F7F2] border-b border-stone-200 sticky top-0 z-50">
         <div class="text-2xl font-bold text-bordeaux tracking-tighter uppercase">Wine Not Bloom</div>
         <div class="hidden md:flex space-x-8 text-sm uppercase tracking-widest text-moss">
             <a href="#experience" class="hover:text-bordeaux transition">Experience</a>
             <a href="#collection" class="hover:text-bordeaux transition">Collection</a>
+            <a href="#cellar" class="hover:text-bordeaux transition">The Cellar</a>
             <a href="#contact" class="hover:text-bordeaux transition">Contact</a>
         </div>
     </nav>
 
-    <header class="relative h-[85vh] flex items-center justify-center text-center px-4 overflow-hidden">
+    <header class="relative h-[70vh] flex items-center justify-center text-center px-4">
         <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&q=80&w=2070" class="w-full h-full object-cover opacity-30" alt="Wine and Flowers">
+            <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&q=80&w=2070" class="w-full h-full object-cover opacity-20">
         </div>
         <div class="relative z-10 max-w-3xl">
-            <span class="text-moss uppercase tracking-[0.3em] text-sm mb-4 block italic">Curated Botanics & Spirits</span>
-            <h1 class="text-5xl md:text-7xl text-bordeaux mb-6 leading-tight">Where the notes of a vintage meet the scent of a bloom.</h1>
-            <p class="text-lg text-stone-600 mb-8 italic">Ready-to-display wine and floral pairings for life's most poetic moments.</p>
-            <a href="https://wa.me/353851152527" class="bg-bordeaux text-white px-10 py-4 rounded-full hover:bg-opacity-90 transition duration-300 inline-block uppercase tracking-widest text-xs font-bold shadow-lg">Order via WhatsApp</a>
+            <h1 class="text-5xl md:text-7xl text-bordeaux mb-4 leading-tight">Sensory Harmony</h1>
+            <p class="text-lg text-stone-600 italic mb-8">Premium wine and artisan blooms, table-ready for your special moments.</p>
+            <a href="https://wa.me/353851152527" class="bg-bordeaux text-white px-8 py-3 rounded-full uppercase tracking-widest text-xs font-bold">Inquire Now</a>
         </div>
     </header>
 
-    <section id="experience" class="py-24 px-8 bg-white">
-        <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-            <div>
-                <h2 class="text-4xl text-moss mb-6 leading-snug italic">The perfect sensory harmony.</h2>
-                <div class="space-y-4 text-stone-600 leading-relaxed text-lg">
-                    <p>Why choose between a bouquet and a bottle? At <strong>Wine Not Bloom</strong>, we believe the elegance of a fine wine is <strong>perfectly complemented</strong> by the organic beauty of seasonal flowers.</p>
-                    <p>Our arrangements are designed to be "table-ready"—not just a gift, but a curated centerpiece that transforms any home into a celebration of taste and aesthetics.</p>
-                    <p class="text-bordeaux font-semibold pt-4 border-t border-stone-100 italic">✨ Please note: Orders must be placed at least 72 hours in advance to ensure the perfection of your experience.</p>
+    <section id="collection" class="py-20 px-8 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl text-center text-bordeaux mb-16 italic font-serif">Step 1: Choose your Experience</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                
+                <div class="flip-card" onclick="this.classList.toggle('active')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&q=80" class="w-full h-full object-cover">
+                            <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black text-white text-xl serif italic">The Celebration</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3 class="text-2xl mb-4 font-serif">The Celebration</h3>
+                            <ul class="text-sm mb-6 space-y-2">
+                                <li>• Premium Sparkling/White Wine</li>
+                                <li>• Seasonal Vibrant Floral Design</li>
+                                <li>• Hand-written Note</li>
+                            </ul>
+                            <p class="font-bold text-lg mb-4">From €85</p>
+                            <span class="text-[10px] uppercase tracking-widest bg-bordeaux text-white py-2">Click to flip back</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-                <div class="h-64 bg-stone-100 rounded-lg overflow-hidden shadow-sm">
-                    <img src="https://images.unsplash.com/photo-1528938102132-4a9276b8e320?auto=format&fit=crop&q=80" class="w-full h-full object-cover" alt="Floral detail">
+
+                <div class="flip-card" onclick="this.classList.toggle('active')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?auto=format&fit=crop&q=80" class="w-full h-full object-cover">
+                            <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black text-white text-xl serif italic">The Romance</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3 class="text-2xl mb-4 font-serif">The Romance</h3>
+                            <ul class="text-sm mb-6 space-y-2">
+                                <li>• Deep Red/Rosé Selection</li>
+                                <li>• Velvet Red Roses & Foliage</li>
+                                <li>• Luxury Centerpiece Vase</li>
+                            </ul>
+                            <p class="font-bold text-lg mb-4">From €95</p>
+                            <span class="text-[10px] uppercase tracking-widest bg-bordeaux text-white py-2">Click to flip back</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="h-64 bg-stone-100 mt-8 rounded-lg overflow-hidden shadow-sm">
-                    <img src="https://images.unsplash.com/photo-1553361371-9bb220269788?auto=format&fit=crop&q=80" class="w-full h-full object-cover" alt="Wine glass">
+
+                <div class="flip-card" onclick="this.classList.toggle('active')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&q=80" class="w-full h-full object-cover">
+                            <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black text-white text-xl serif italic">The Gratitude</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3 class="text-2xl mb-4 font-serif">The Gratitude</h3>
+                            <ul class="text-sm mb-6 space-y-2">
+                                <li>• Crisp White/Elegant Rosé</li>
+                                <li>• Soft Eucalyptus & Hydrangeas</li>
+                                <li>• Ready-to-display arrangement</li>
+                            </ul>
+                            <p class="font-bold text-lg mb-4">From €80</p>
+                            <span class="text-[10px] uppercase tracking-widest bg-bordeaux text-white py-2">Click to flip back</span>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <section id="collection" class="py-24 px-8 bg-cream border-y border-stone-200">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl text-bordeaux mb-4 italic">Our Signature Pairings</h2>
-                <p class="text-stone-500 tracking-widest uppercase text-xs">Hand-selected bottles • Artisan-designed blooms</p>
+    <section id="cellar" class="py-20 px-8 bg-[#F1ECE3]">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl text-center text-moss mb-4 italic font-serif">Step 2: The Cellar</h2>
+            <p class="text-center text-stone-500 mb-12 text-sm uppercase tracking-widest">Select your preferred bottle from the Irish favorites</p>
+            
+            <div class="flex justify-center space-x-6 mb-10 border-b border-stone-300 pb-2">
+                <button class="tab-btn active px-4 py-2 uppercase text-xs tracking-widest" onclick="openTab(event, 'reds')">Reds</button>
+                <button class="tab-btn px-4 py-2 uppercase text-xs tracking-widest" onclick="openTab(event, 'whites')">Whites</button>
+                <button class="tab-btn px-4 py-2 uppercase text-xs tracking-widest" onclick="openTab(event, 'rose')">Rosé</button>
+                <button class="tab-btn px-4 py-2 uppercase text-xs tracking-widest" onclick="openTab(event, 'sparkling')">Sparkling</button>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-12">
-                <div class="group text-center">
-                    <div class="aspect-[3/4] overflow-hidden mb-6 rounded-sm shadow-md">
-                        <img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&q=80" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" alt="The Celebration">
-                    </div>
-                    <h3 class="text-2xl text-moss mb-2 serif italic">The Celebration</h3>
-                    <p class="text-sm text-stone-500">Sparkling Prosecco paired with vibrant lilies.</p>
-                </div>
+            <div id="reds" class="tab-content active grid grid-cols-2 md:grid-cols-3 gap-4">
+                <div class="p-4 bg-white border border-stone-100 text-xs italic">Malbec (Argentina)</div>
+                <div class="p-4 bg-white border border-stone-100 text-xs italic">Rioja Reserva (Spain)</div>
+                <div class="p-4 bg-white border border-stone-100 text-xs italic">Cabernet Sauvignon</div>
+                <div class="p-4 bg-white border border-stone-100 text-xs italic">Pinot Noir (France)</div>
+                <div class="p-4 bg-white border border-stone-100 text-xs italic">Merlot</div>
+                <div class="p-4 bg-white border border-stone-100 text-xs italic">Shiraz (Australia)</div>
+            </div>
 
-                <div class="group text-center">
-                    <div class="aspect-[3/4] overflow-hidden mb-6 rounded-sm shadow-md">
-                        <img src="https://images.unsplash.com/photo-1516594915697-87eb3b1c14ea?auto=format&fit=crop&q=80" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" alt="The Romance">
-                    </div>
-                    <h3 class="text-2xl text-moss mb-2 serif italic">The Romance</h3>
-                    <p class="text-sm text-stone-500">Deep Malbec with velvet red roses.</p>
-                </div>
+            <div id="whites" class="tab-content grid grid-cols-2 md:grid-cols-2 gap-4">
+                <div class="p-4 bg-white border border-stone-100 text-xs italic text-center">Sauvignon Blanc (Marlborough)</div>
+                <div class="p-4 bg-white border border-stone-100 text-xs italic text-center">Pinot Grigio (Italy)</div>
+                <div class="p-4 bg-white border border-stone-100 text-xs italic text-center">Chardonnay</div>
+                <div class="p-4 bg-white border border-stone-100 text-xs italic text-center">Chablis</div>
+            </div>
 
-                <div class="group text-center">
-                    <div class="aspect-[3/4] overflow-hidden mb-6 rounded-sm shadow-md">
-                        <img src="https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&q=80" class="w-full h-full object-cover group-hover:scale-105 transition duration-700" alt="The Gratitude">
-                    </div>
-                    <h3 class="text-2xl text-moss mb-2 serif italic">The Gratitude</h3>
-                    <p class="text-sm text-stone-500">Sauvignon Blanc with fresh eucalyptus.</p>
-                </div>
+            <div id="rose" class="tab-content grid grid-cols-2 md:grid-cols-2 gap-4">
+                <div class="p-4 bg-white border border-stone-100 text-xs italic text-center">Cotes de Provence</div>
+                <div class="p-4 bg-white border border-stone-100 text-xs italic text-center">Whispering Angel style</div>
+                <div class="p-4 bg-white border border-stone-100 text-xs italic text-center">Grenache Rosé</div>
+                <div class="p-4 bg-white border border-stone-100 text-xs italic text-center">White Zinfandel</div>
+            </div>
+
+            <div id="sparkling" class="tab-content grid grid-cols-2 md:grid-cols-2 gap-4">
+                <div class="p-4 bg-white border border-stone-100 text-xs italic text-center">Prosecco DOC Treviso</div>
+                <div class="p-4 bg-white border border-stone-100 text-xs italic text-center">Spanish Cava</div>
+                <div class="p-4 bg-white border border-stone-100 text-xs italic text-center">Champagne Brut</div>
+                <div class="p-4 bg-white border border-stone-100 text-xs italic text-center">Rosé Spumante</div>
+            </div>
+
+            <div class="mt-16 p-8 border-2 border-dashed border-bordeaux rounded-lg text-center bg-white shadow-xl">
+                <h4 class="text-xl text-bordeaux font-bold uppercase tracking-widest mb-2 italic">✨ Bespoke Gold Package</h4>
+                <p class="text-sm text-stone-600 mb-4 italic">Looking for a specific vintage or a rare bottle not listed above?</p>
+                <p class="text-xs uppercase font-bold tracking-tighter">Choose your dream wine, and we will source it for you. <br> <span class="text-bordeaux underline">Price under evaluation (Personalized quote via WhatsApp).</span></p>
             </div>
         </div>
+    </section>
+
+    <section class="py-12 bg-white text-center border-t border-stone-100">
+        <h4 class="text-xs uppercase tracking-[0.3em] text-stone-400 mb-6 font-bold">Secure Payment Methods</h4>
+        <div class="flex justify-center space-x-8 opacity-60 grayscale hover:grayscale-0 transition duration-500">
+            <span class="text-sm font-bold tracking-tighter">REVOLUT</span>
+            <span class="text-sm font-bold tracking-tighter">BANK TRANSFER</span>
+            <span class="text-sm font-bold tracking-tighter">PAYPAL</span>
+        </div>
+        <p class="text-[10px] text-stone-400 mt-4 italic">*Please have your order confirmed via WhatsApp before processing payment.</p>
     </section>
 
     <footer id="contact" class="bg-moss py-20 px-8 text-cream">
-        <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-12 text-center md:text-left">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
             <div>
                 <h4 class="text-xl mb-6 font-bold uppercase tracking-widest">Wine Not Bloom</h4>
-                <p class="text-stone-300 text-sm">Bespoke wine and floral design for those who appreciate the art of gifting.</p>
+                <p class="text-stone-300 text-sm mb-6">Curated wine and floral experiences. Order 72h in advance.</p>
+                <a href="https://www.instagram.com/winenotbloom/" class="text-xs uppercase border border-cream/30 px-6 py-2 hover:bg-cream hover:text-moss transition">Instagram</a>
             </div>
-            <div>
-                <h4 class="text-xl mb-6 font-bold uppercase tracking-widest">Orders</h4>
-                <p class="text-stone-300 text-sm italic">72 hours advance notice required.</p>
-                <p class="text-stone-300 text-sm mt-2">Fragile delivery options available.</p>
-            </div>
-            <div>
-                <h4 class="text-xl mb-6 font-bold uppercase tracking-widest">Contact</h4>
-                <p class="text-stone-300 text-sm mb-4">
-                    Email: <a href="mailto:winenotbloom@gmail.com" class="underline">winenotbloom@gmail.com</a><br>
-                    WhatsApp: <a href="https://wa.me/353851152527" class="underline">+353 85 ****</a>
-                </p>
-                <a href="https://www.instagram.com/winenotbloom/" target="_blank" class="text-xs tracking-widest uppercase border border-cream/30 px-4 py-2 hover:bg-cream hover:text-moss transition">Instagram</a>
+            <div class="text-right">
+                <h4 class="text-xl mb-6 font-bold uppercase tracking-widest italic">Let's Talk</h4>
+                <p class="text-stone-300 text-sm mb-2">winenotbloom@gmail.com</p>
+                <p class="text-2xl font-bold">+353 85 *** ****</p>
             </div>
         </div>
     </footer>
 
+    <script>
+        // Music Toggle
+        const music = document.getElementById('bgMusic');
+        const status = document.getElementById('musicStatus');
+        const icon = document.getElementById('musicIcon');
+        
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+                status.innerText = "Music On";
+                icon.innerText = "🔊";
+            } else {
+                music.pause();
+                status.innerText = "Music Off";
+                icon.innerText = "🔈";
+            }
+        }
+
+        // Tabs Logic
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
 </body>
 </html>
