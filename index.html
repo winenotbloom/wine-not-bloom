@@ -28,6 +28,26 @@
         .tab-content { display: none; }
         .tab-content.active { display: grid; }
         .tab-btn.active { border-bottom: 2px solid #4A0E0E; color: #4A0E0E; }
+        /* Hover Livre: Gira ao passar o mouse se não estiver selecionado */
+.flip-card:not(.selected):hover .flip-card-inner { 
+    transform: rotateY(180deg); 
+}
+
+/* Trava: Mantém 180 graus e adiciona borda bordeaux quando selecionado */
+.flip-card.selected .flip-card-inner { 
+    transform: rotateY(180deg); 
+}
+
+/* Aplica a borda apenas no verso (que é o que fica visível após o clique) */
+.flip-card.selected .flip-card-back { 
+    border: 4px solid #4A0E0E !important; 
+}
+
+/* Garante que as faces tenham a transição suave para a borda */
+.flip-card-front, .flip-card-back { 
+    transition: border-color 0.4s ease;
+    border: 4px solid transparent;
+}
     </style>
 </head>
 <body>
