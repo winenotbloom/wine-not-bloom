@@ -7,10 +7,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-/* --- ESTILOS FIXOS DOS KITS --- */
+/* Altura fixa para servir de âncora e impedir que o layout 'desça' */
 .flip-card {
     perspective: 1000px;
-    height: 500px;
+    height: 500px; /* Mantém o espaço reservado fixo */
     cursor: pointer;
     background-color: transparent;
 }
@@ -23,18 +23,16 @@
     transform-style: preserve-3d;
 }
 
-/* Hover: Gira se não estiver selecionado */
-.flip-card:hover .flip-card-inner {
+/* Hover e Seleção: Giram no próprio eixo sem alterar a altura do container */
+.flip-card:hover .flip-card-inner,
+.flip-card.active .flip-card-inner {
     transform: rotateY(180deg);
 }
 
-/* Seleção: Trava o giro em 180 graus */
-.flip-card.active .flip-card-inner {
-    transform: rotateY(180deg) !important;
-}
-
 .flip-card-front, .flip-card-back {
-    position: absolute;
+    position: absolute; /* Sobreposição perfeita: impede que uma face empurre a outra */
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     -webkit-backface-visibility: hidden;
@@ -43,7 +41,7 @@
     border: 4px solid transparent;
 }
 
-/* CORREÇÃO DO TEXTO ESPELHADO: O verso já começa rotacionado */
+/* CORREÇÃO DO ESPELHAMENTO: O verso já nasce em 180° para ficar legível após o giro */
 .flip-card-back {
     background-color: #F1ECE3;
     transform: rotateY(180deg); 
@@ -55,7 +53,7 @@
     z-index: 1;
 }
 
-/* Borda Bordeaux apenas quando ativo */
+/* Borda Bordeaux de marcação no verso selecionado */
 .flip-card.active .flip-card-back {
     border-color: #4A0E0E;
 }
@@ -258,33 +256,31 @@
             if (music.paused) { music.play(); txt.innerText = "Jazz On"; }
             else { music.pause(); txt.innerText = "Jazz Off"; }
         }
-     function selectKit(name, price, id) {
-    // 1. Remove a trava de todos os outros cards
+    function selectKit(name, price, id) {
+    // 1. Remove a classe de estado 'active' de todos os cards
     document.querySelectorAll('.flip-card').forEach(card => {
         card.classList.remove('active');
     });
 
-    // 2. Trava o card selecionado no verso (180 graus)
+    // 2. Adiciona a classe 'active' apenas ao card clicado (trava o giro)
     const selectedCard = document.getElementById(id);
     if (selectedCard) {
         selectedCard.classList.add('active');
     }
 
-    // 3. Salva os dados do pedido
-    order.kit = name;
-    order.price = price;
-
-    // 4. Libera a adega
-    const cellar = document.getElementById('cellar');
-    if (cellar) {
-        cellar.classList.remove('opacity-30', 'pointer-events-none');
-        
-        // 5. Scroll da PÁGINA para a adega (o card não se move, a página sim)
-        setTimeout(() => {
-            cellar.scrollIntoView({ behavior: 'smooth' });
-        }, 800);
+    // 3. Salva os dados para o pedido final
+    if (typeof order !== 'undefined') {
+        order.kit = name;
+        order.price = price;
     }
 
+    // 4. Habilita a seção da adega visualmente (opacidade), mas SEM scroll automático
+    const cellar = document.getElementById('cellar');
+    if (cellar) {
+        cellar.classList.remove('opacity-30', 'pointer-events-none', 'opacity-40');
+    }
+
+    // Atualiza o resumo de compra se a função existir
     if (typeof updateSummary === 'function') updateSummary();
 }
         function selectWine(wine) {
