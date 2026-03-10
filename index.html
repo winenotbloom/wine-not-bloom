@@ -7,68 +7,57 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-   /* --- ESTILOS DOS KITS (CORREÇÃO DE TEXTO ESPELHADO + TRAVA) --- */
-
-/* Container principal do flip */
+/* --- ESTILOS FIXOS DOS KITS --- */
 .flip-card {
     perspective: 1000px;
-    height: 500px; /* Ajuste conforme sua necessidade */
+    height: 500px;
     cursor: pointer;
-    position: relative;
+    background-color: transparent;
 }
 
-/* Container interno que faz a rotação */
 .flip-card-inner {
     position: relative;
     width: 100%;
     height: 100%;
     transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     transform-style: preserve-3d;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    border-radius: 8px;
 }
 
-/* Classe aplicada via JS para travar o card virado */
-.flip-card.active .flip-card-inner {
+/* Hover: Gira se não estiver selecionado */
+.flip-card:hover .flip-card-inner {
     transform: rotateY(180deg);
 }
 
-/* Face Frontal e Traseira */
+/* Seleção: Trava o giro em 180 graus */
+.flip-card.active .flip-card-inner {
+    transform: rotateY(180deg) !important;
+}
+
 .flip-card-front, .flip-card-back {
     position: absolute;
     width: 100%;
     height: 100%;
-    -webkit-backface-visibility: hidden; /* Essencial: esconde a face oposta */
+    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    border-radius: 8px;
-    overflow: hidden;
+    border-radius: 4px;
+    border: 4px solid transparent;
+}
+
+/* CORREÇÃO DO TEXTO ESPELHADO: O verso já começa rotacionado */
+.flip-card-back {
+    background-color: #F1ECE3;
+    transform: rotateY(180deg); 
     display: flex;
     flex-direction: column;
-    border: 4px solid transparent; /* Espaço para a borda de seleção */
-    transition: border-color 0.3s ease;
-}
-
-/* Estilo da Face Frontal (Foto) */
-.flip-card-front {
-    background-color: #bbb; /* Cor de fundo caso a imagem falhe */
-    color: black;
-    z-index: 2; /* Garante que a frente fique no topo inicialmente */
-}
-
-/* Estilo da Face Traseira (Conteúdo/Texto) */
-.flip-card-back {
-    background-color: #F1ECE3; /* Cor de fundo clara para o texto */
-    color: #4A0E0E; /* Cor do texto Bordeaux */
-    transform: rotateY(180deg); /* PRÉ-VIRA O VERSO para que ele fique legível após o giro do container */
-    z-index: 1;
     justify-content: center;
     align-items: center;
-    padding: 2rem;
+    padding: 20px;
+    z-index: 1;
 }
 
-/* --- Borda Bordeaux de Seleção (Aplicada ao Verso) --- */
+/* Borda Bordeaux apenas quando ativo */
 .flip-card.active .flip-card-back {
-    border-color: #4A0E0E !important;
+    border-color: #4A0E0E;
 }
     </style>
 </head>
@@ -269,37 +258,34 @@
             if (music.paused) { music.play(); txt.innerText = "Jazz On"; }
             else { music.pause(); txt.innerText = "Jazz Off"; }
         }
-       function selectKit(name, price, id) {
-    // 1. Localiza todos os cards para resetar os outros
-    const allCards = document.querySelectorAll('.flip-card');
-
-    // 2. Remove a marcação 'active' de todos para que apenas um fique travado
-    allCards.forEach(card => {
+     function selectKit(name, price, id) {
+    // 1. Remove a trava de todos os outros cards
+    document.querySelectorAll('.flip-card').forEach(card => {
         card.classList.remove('active');
     });
 
-    // 3. Adiciona a classe 'active' ao card clicado (faz ele girar 180 e travar)
+    // 2. Trava o card selecionado no verso (180 graus)
     const selectedCard = document.getElementById(id);
     if (selectedCard) {
         selectedCard.classList.add('active');
     }
 
-    // 4. Salva os dados para o carrinho/WhatsApp
-    if (typeof order !== 'undefined') {
-        order.kit = name;
-        order.price = price;
+    // 3. Salva os dados do pedido
+    order.kit = name;
+    order.price = price;
+
+    // 4. Libera a adega
+    const cellar = document.getElementById('cellar');
+    if (cellar) {
+        cellar.classList.remove('opacity-30', 'pointer-events-none');
+        
+        // 5. Scroll da PÁGINA para a adega (o card não se move, a página sim)
+        setTimeout(() => {
+            cellar.scrollIntoView({ behavior: 'smooth' });
+        }, 800);
     }
 
-    // 5. Habilita a seção da adega (Cellar), mas REMOVI o auto-scroll
-    const cellarSection = document.getElementById('cellar');
-    if (cellarSection) {
-        cellarSection.classList.remove('opacity-30', 'pointer-events-none');
-    }
-
-    // Atualiza o resumo do pedido no final da página
-    if (typeof updateSummary === 'function') {
-        updateSummary();
-    }
+    if (typeof updateSummary === 'function') updateSummary();
 }
         function selectWine(wine) {
             order.wine = wine;
