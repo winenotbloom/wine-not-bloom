@@ -57,6 +57,69 @@
 .flip-card.active .flip-card-back {
     border-color: #4A0E0E;
 }
+/* --- ESTILOS DA ADEGA (THE CELLAR) --- */
+
+/* Esconde as grades que não estão ativas */
+.wine-grid {
+    display: none;
+    grid-template-columns: repeat(2, 1fr); /* 2 colunas no mobile */
+    gap: 12px;
+    margin-top: 2rem;
+}
+
+/* 3 colunas no Desktop */
+@media (min-width: 768px) {
+    .wine-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.wine-grid.active {
+    display: grid;
+}
+
+/* Estilo de cada opção de vinho */
+.wine-option {
+    padding: 15px;
+    border: 1px solid #e5e7eb;
+    background: #fff;
+    font-style: italic;
+    font-size: 13px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+}
+
+/* Efeito ao passar o mouse */
+.wine-option:hover {
+    border-color: #4A0E0E;
+}
+
+/* VISUAL ESPECÍFICO: Vinho selecionado */
+.wine-option.selected {
+    background-color: #F1ECE3; /* Tom creme suave */
+    border: 2px solid #4A0E0E; /* Borda Bordeaux */
+    color: #4A0E0E;    
+    font-weight: 600;
+}
+
+/* Estilo dos Botões de Categoria (Tabs) */
+.tab-btn {
+    padding: 10px 20px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s;
+    color: #9ca3af;
+}
+
+.tab-btn.active {
+    color: #4A0E0E;
+    border-bottom-color: #4A0E0E;
+} 
     </style>
 </head>
 <body>
@@ -171,50 +234,47 @@
         </div>
     </section>
 
-    <section id="cellar" class="py-24 px-8 bg-white opacity-30 pointer-events-none transition-all duration-700">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-4xl text-center text-moss mb-12 serif italic">The Cellar</h2>
-            <div class="flex justify-center space-x-6 mb-10 border-b pb-2">
-                <button class="tab-btn active text-[10px] font-bold uppercase" onclick="openTab(event, 'reds')">Reds</button>
-                <button class="tab-btn text-[10px] font-bold uppercase" onclick="openTab(event, 'whites')">Whites</button>
-                <button class="tab-btn text-[10px] font-bold uppercase" onclick="openTab(event, 'rose')">Rosé</button>
-                <button class="tab-btn text-[10px] font-bold uppercase" onclick="openTab(event, 'spark')">Sparkling</button>
-            </div>
+   <section id="cellar" class="py-24 px-8 bg-white opacity-30 pointer-events-none transition-all duration-700">
+    <div class="max-w-5xl mx-auto text-center">
+        <h2 class="text-4xl mb-4 serif italic">The Cellar</h2>
+        <p class="text-stone-400 text-[10px] uppercase tracking-widest mb-10">Step 2: Choose your bottle</p>
 
-            <div id="reds" class="tab-content active grid grid-cols-2 md:grid-cols-3 gap-3">
-                <div class="wine-option p-4 text-[11px] italic text-center cursor-pointer" onclick="selectWine('Malbec (Argentina)')">Malbec (Argentina)</div>
-                <div class="wine-option p-4 text-[11px] italic text-center cursor-pointer" onclick="selectWine('Rioja Reserva')">Rioja Reserva</div>
-                <div class="wine-option p-4 text-[11px] italic text-center cursor-pointer" onclick="selectWine('Cabernet Sauvignon')">Cabernet Sauvignon</div>
-                <div class="wine-option p-4 text-[11px] italic text-center cursor-pointer" onclick="selectWine('Pinot Noir')">Pinot Noir</div>
-                <div class="wine-option p-4 text-[11px] italic text-center cursor-pointer" onclick="selectWine('Merlot')">Merlot</div>
-                <div class="wine-option p-4 text-[11px] italic text-center cursor-pointer" onclick="selectWine('Shiraz (Australia)')">Shiraz (Australia)</div>
-            </div>
-            <div id="whites" class="tab-content grid-cols-2 gap-3">
-                <div class="wine-option p-4 text-[11px] italic text-center cursor-pointer" onclick="selectWine('Sauvignon Blanc')">Sauvignon Blanc</div>
-                <div class="wine-option p-4 text-[11px] italic text-center cursor-pointer" onclick="selectWine('Pinot Grigio')">Pinot Grigio</div>
-                <div class="wine-option p-4 text-[11px] italic text-center cursor-pointer" onclick="selectWine('Chardonnay')">Chardonnay</div>
-                <div class="wine-option p-4 text-[11px] italic text-center cursor-pointer" onclick="selectWine('Chablis')">Chablis</div>
-            </div>
-            <div id="rose" class="tab-content grid-cols-2 gap-3">
-                <div class="wine-option p-4 text-[11px] italic text-center cursor-pointer" onclick="selectWine('Provence Rosé')">Provence Rosé</div>
-                <div class="wine-option p-4 text-[11px] italic text-center cursor-pointer" onclick="selectWine('Whispering Angel')">Whispering Angel</div>
-                <div class="wine-option p-4 text-[11px] italic text-center cursor-pointer" onclick="selectWine('Grenache Rosé')">Grenache Rosé</div>
-                <div class="wine-option p-4 text-[11px] italic text-center cursor-pointer" onclick="selectWine('White Zinfandel')">White Zinfandel</div>
-            </div>
-            <div id="spark" class="tab-content grid-cols-2 gap-3">
-                <div class="wine-option p-4 text-[11px] italic text-center cursor-pointer" onclick="selectWine('Prosecco Treviso')">Prosecco Treviso</div>
-                <div class="wine-option p-4 text-[11px] italic text-center cursor-pointer" onclick="selectWine('Spanish Cava')">Spanish Cava</div>
-                <div class="wine-option p-4 text-[11px] italic text-center cursor-pointer" onclick="selectWine('Champagne Brut')">Champagne Brut</div>
-                <div class="wine-option p-4 text-[11px] italic text-center cursor-pointer" onclick="selectWine('Rosé Spumante')">Rosé Spumante</div>
-            </div>
-
-            <div class="mt-12 p-10 border-2 border-bordeaux text-center bg-[#F1ECE3]">
-                <h4 class="serif italic text-2xl text-bordeaux mb-2">The Gold Selection</h4>
-                <p class="text-[9px] uppercase font-bold text-stone-400 mb-6 italic">Rare spirits or bespoke requests</p>
-                <button onclick="selectWine('GOLD REQUEST')" class="border border-bordeaux text-bordeaux px-8 py-2 text-[10px] font-bold uppercase hover:bg-bordeaux hover:text-white transition">Inquire Now</button>
-            </div>
+        <div class="flex justify-center space-x-2 md:space-x-8 border-b border-stone-100 mb-8">
+            <button class="tab-btn" onclick="openWineTab(event, 'reds')">Reds</button>
+            <button class="tab-btn" onclick="openWineTab(event, 'whites')">Whites</button>
+            <button class="tab-btn" onclick="openWineTab(event, 'rose')">Rosé</button>
+            <button class="tab-btn" onclick="openWineTab(event, 'sparkling')">Sparkling</button>
         </div>
-    </section>
+
+        <div id="reds" class="wine-grid">
+            <div class="wine-option" onclick="selectWine(this, 'Malbec (Argentina)')">Malbec (Argentina)</div>
+            <div class="wine-option" onclick="selectWine(this, 'Rioja Reserva')">Rioja Reserva</div>
+            <div class="wine-option" onclick="selectWine(this, 'Cabernet Sauvignon')">Cabernet Sauvignon</div>
+            <div class="wine-option" onclick="selectWine(this, 'Pinot Noir')">Pinot Noir</div>
+            <div class="wine-option" onclick="selectWine(this, 'Merlot')">Merlot</div>
+            <div class="wine-option" onclick="selectWine(this, 'Shiraz (Australia)')">Shiraz (Australia)</div>
+        </div>
+
+        <div id="whites" class="wine-grid">
+            <div class="wine-option" onclick="selectWine(this, 'Sauvignon Blanc')">Sauvignon Blanc</div>
+            <div class="wine-option" onclick="selectWine(this, 'Pinot Grigio')">Pinot Grigio</div>
+            <div class="wine-option" onclick="selectWine(this, 'Chardonnay')">Chardonnay</div>
+            <div class="wine-option" onclick="selectWine(this, 'Chablis')">Chablis</div>
+        </div>
+
+        <div id="rose" class="wine-grid">
+            <div class="wine-option" onclick="selectWine(this, 'Provence Rosé')">Provence Rosé</div>
+            <div class="wine-option" onclick="selectWine(this, 'Whispering Angel')">Whispering Angel</div>
+            <div class="wine-option" onclick="selectWine(this, 'Grenache Rosé')">Grenache Rosé</div>
+        </div>
+
+        <div id="sparkling" class="wine-grid">
+            <div class="wine-option" onclick="selectWine(this, 'Prosecco Treviso')">Prosecco Treviso</div>
+            <div class="wine-option" onclick="selectWine(this, 'Champagne Brut')">Champagne Brut</div>
+            <div class="wine-option" onclick="selectWine(this, 'Rosé Spumante')">Rosé Spumante</div>
+        </div>
+    </div>
+</section>
 
     <section id="testimonials" class="py-24 px-8 bg-[#F9F7F2]">
         <div class="max-w-6xl mx-auto text-center">
@@ -262,6 +322,49 @@
         card.classList.remove('active');
     });
 
+        // Função para alternar entre as categorias de vinho
+function openWineTab(evt, categoryId) {
+    // Esconde todas as grades
+    document.querySelectorAll('.wine-grid').forEach(grid => {
+        grid.classList.remove('active');
+    });
+
+    // Desmarca todos os botões de aba
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+
+    // Mostra a categoria selecionada e ativa o botão
+    document.getElementById(categoryId).classList.add('active');
+    evt.currentTarget.classList.add('active');
+}
+
+// Função para selecionar o vinho específico
+function selectWine(element, wineName) {
+    // Remove a seleção de todos os vinhos na seção
+    document.querySelectorAll('.wine-option').forEach(opt => {
+        opt.classList.remove('selected');
+    });
+
+    // Aplica o destaque visual ao vinho clicado
+    element.classList.add('selected');
+
+    // Salva a escolha no objeto global do pedido
+    if (typeof order !== 'undefined') {
+        order.wine = wineName;
+    }
+
+    // Libera a próxima seção (Checkout/WhatsApp)
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+        contactSection.classList.remove('opacity-30', 'pointer-events-none');
+    }
+
+    // Atualiza o resumo se a função existir
+    if (typeof updateSummary === 'function') {
+        updateSummary();
+    }
+}
     // 2. Adiciona a classe 'active' apenas ao card clicado (trava o giro)
     const selectedCard = document.getElementById(id);
     if (selectedCard) {
