@@ -316,43 +316,53 @@
             if (music.paused) { music.play(); txt.innerText = "Jazz On"; }
             else { music.pause(); txt.innerText = "Jazz Off"; }
         }
-    function selectKit(name, price, id) {
-    // 1. Remove a classe de estado 'active' de todos os cards
-    document.querySelectorAll('.flip-card').forEach(card => {
-        card.classList.remove('active');
-    });
+  function selectKit(name, price, id) {
+    // Mantém sua lógica de giro que já está funcionando
+    document.querySelectorAll('.flip-card').forEach(card => card.classList.remove('active'));
+    const selectedCard = document.getElementById(id);
+    if (selectedCard) selectedCard.classList.add('active');
 
-        // Função para alternar entre as categorias de vinho
+    // LIBERA AS BEBIDAS: Remove o bloqueio de clique
+    const cellar = document.getElementById('cellar');
+    if (cellar) {
+        cellar.classList.remove('opacity-30', 'pointer-events-none'); 
+        cellar.style.pointerEvents = 'auto'; // Garante que o clique funcione agora
+        cellar.style.opacity = '1';
+    }
+
+    // Salva os dados do kit
+    if (typeof order !== 'undefined') {
+        order.kit = name;
+        order.price = price;
+    }
+}
+
+  // Função para abrir Reds, Whites, etc.
 function openWineTab(evt, categoryId) {
-    // Esconde todas as grades
+    // Esconde todas as grades de vinhos
     document.querySelectorAll('.wine-grid').forEach(grid => {
         grid.classList.remove('active');
     });
 
-    // Desmarca todos os botões de aba
+    // Desmarca os botões das abas
     document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.classList.remove('active');
     });
 
-    // Mostra a categoria selecionada e ativa o botão
+    // Mostra a categoria escolhida e destaca o botão
     document.getElementById(categoryId).classList.add('active');
     evt.currentTarget.classList.add('active');
 }
 
-// Função para selecionar o vinho específico
+// Função para marcar o vinho escolhido com a moldura
 function selectWine(element, wineName) {
-    // Remove a seleção de todos os vinhos na seção
     document.querySelectorAll('.wine-option').forEach(opt => {
         opt.classList.remove('selected');
     });
-
-    // Aplica o destaque visual ao vinho clicado
     element.classList.add('selected');
-
-    // Salva a escolha no objeto global do pedido
-    if (typeof order !== 'undefined') {
-        order.wine = wineName;
-    }
+    
+    if (typeof order !== 'undefined') order.wine = wineName;
+}
 
     // Libera a próxima seção (Checkout/WhatsApp)
     const contactSection = document.getElementById('contact');
