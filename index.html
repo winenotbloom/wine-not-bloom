@@ -1,3 +1,5 @@
+KITS CORRETO 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -316,59 +318,43 @@
             if (music.paused) { music.play(); txt.innerText = "Jazz On"; }
             else { music.pause(); txt.innerText = "Jazz Off"; }
         }
-  function selectKit(name, price, id) {
-    // 1. Sua lógica de flip que já funciona
-    document.querySelectorAll('.flip-card').forEach(card => card.classList.remove('active'));
-    const selectedCard = document.getElementById(id);
-    if (selectedCard) selectedCard.classList.add('active');
+    function selectKit(name, price, id) {
+    // 1. Remove a classe de estado 'active' de todos os cards
+    document.querySelectorAll('.flip-card').forEach(card => {
+        card.classList.remove('active');
+    });
 
-    // 2. DESBLOQUEIO TOTAL DA ADEGA
-    const cellar = document.getElementById('cellar');
-    if (cellar) {
-        // Remove as classes de trava
-        cellar.classList.remove('opacity-30', 'pointer-events-none', 'opacity-40');
-        
-        // Aplica estilos diretamente para forçar a liberação do clique
-        cellar.style.opacity = "1";
-        cellar.style.pointerEvents = "all"; // "all" ou "auto" libera os cliques nas abas
-        cellar.style.cursor = "default";
-    }
-
-    // Dados do pedido
-    if (typeof order !== 'undefined') {
-        order.kit = name;
-        order.price = price;
-    }
-}
-
-// Função para as Abas de Vinho (Reds, Whites, etc)
+        // Função para alternar entre as categorias de vinho
 function openWineTab(evt, categoryId) {
     // Esconde todas as grades
     document.querySelectorAll('.wine-grid').forEach(grid => {
-        grid.style.display = 'none';
         grid.classList.remove('active');
     });
 
-    // Remove destaque dos botões
+    // Desmarca todos os botões de aba
     document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.classList.remove('active');
     });
 
-    // Mostra a grade correta
-    const targetGrid = document.getElementById(categoryId);
-    if (targetGrid) {
-        targetGrid.style.display = 'grid'; // Força a exibição em grade
-        targetGrid.classList.add('active');
-    }
+    // Mostra a categoria selecionada e ativa o botão
+    document.getElementById(categoryId).classList.add('active');
     evt.currentTarget.classList.add('active');
 }
 
-// Função para selecionar o vinho
+// Função para selecionar o vinho específico
 function selectWine(element, wineName) {
-    document.querySelectorAll('.wine-option').forEach(opt => opt.classList.remove('selected'));
+    // Remove a seleção de todos os vinhos na seção
+    document.querySelectorAll('.wine-option').forEach(opt => {
+        opt.classList.remove('selected');
+    });
+
+    // Aplica o destaque visual ao vinho clicado
     element.classList.add('selected');
-    if (typeof order !== 'undefined') order.wine = wineName;
-}
+
+    // Salva a escolha no objeto global do pedido
+    if (typeof order !== 'undefined') {
+        order.wine = wineName;
+    }
 
     // Libera a próxima seção (Checkout/WhatsApp)
     const contactSection = document.getElementById('contact');
