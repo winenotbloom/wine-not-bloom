@@ -1,5 +1,3 @@
-KITS CORRETO 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,159 +7,109 @@ KITS CORRETO
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-/* --- CORREÇÃO DOS KITS (SEM SALTO E COM BORDA BORDEAUX) --- */
-.flip-card {
-    perspective: 1000px;
-    height: 500px; /* Altura fixa impede que o layout desça */
-    position: relative;
-}
+        :root { --bordeaux: #4A0E0E; }
 
-.flip-card-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    transform-style: preserve-3d;
-}
+        /* --- KITS (FLIP CARDS) --- */
+        .flip-card {
+            perspective: 1000px;
+            height: 500px;
+            position: relative;
+            cursor: pointer;
+        }
 
-/* Gira no hover ou quando estiver ativo */
-.flip-card:hover .flip-card-inner,
-.flip-card.active .flip-card-inner {
-    transform: rotateY(180deg);
-}
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
 
-.flip-card-front, .flip-card-back {
-    position: absolute; /* Sobreposição perfeita evita o erro da imagem image_d772c2.jpg */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    border-radius: 4px;
-    border: 4px solid transparent; /* Borda invisível padrão */
-    transition: border-color 0.3s ease;
-}
+        .flip-card.active .flip-card-inner {
+            transform: rotateY(180deg);
+        }
 
-/* Verso do Card: Texto legível e Borda Bordeaux quando selecionado */
-.flip-card-back {
-    background-color: #F1ECE3;
-    transform: rotateY(180deg); /* Corrige texto espelhado da image_e1fe87.jpg */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-}
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 4px;
+            border: 4px solid transparent;
+            transition: all 0.3s ease;
+        }
 
-/* ESTADO SELECIONADO: Borda Bordeaux */
-.flip-card.active .flip-card-back {
-    border-color: #4A0E0E;
-}
+        .flip-card-back {
+            background-color: #F1ECE3;
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
-/* --- ESTILOS DA ADEGA (GRID E ABAS) --- */
-.wine-grid {
-    display: none; /* Oculto até clicar na cor */
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    margin-top: 30px;
-}
+        /* BORDA BORDEAUX NO KIT SELECIONADO */
+        .flip-card.active .flip-card-back {
+            border-color: var(--bordeaux);
+        }
 
-@media (min-width: 768px) { .wine-grid { grid-template-columns: repeat(3, 1fr); } }
+        /* --- THE CELLAR (ABAS E GRADES) --- */
+        .wine-grid {
+            display: none;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 30px;
+        }
 
-.wine-grid.active { display: grid; }
+        @media (min-width: 768px) { .wine-grid { grid-template-columns: repeat(3, 1fr); } }
 
-.wine-option {
-    padding: 15px;
-    border: 2px solid #e5e7eb;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.3s;
-    text-align: center;
-    font-style: italic;
-}
+        .wine-grid.active { display: grid; }
 
-/* Vinho Selecionado: Borda Bordeaux */
-.wine-option.selected {
-    border-color: #4A0E0E;
-    background-color: #FDFCFB;
-    font-weight: bold;
-}
+        .wine-option {
+            padding: 15px;
+            border: 2px solid #e5e7eb;
+            background: #fff;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-style: italic;
+            font-size: 13px;
+        }
 
-.tab-btn.active {
-    color: #4A0E0E;
-    border-bottom: 2px solid #4A0E0E;
-}
-/* Borda Bordeaux de marcação no verso selecionado */
-.flip-card.active .flip-card-back {
-    border-color: #4A0E0E;
-}
-/* --- ESTILOS DA ADEGA (THE CELLAR) --- */
+        .wine-option:hover { border-color: var(--bordeaux); }
 
-/* Esconde as grades que não estão ativas */
-.wine-grid {
-    display: none;
-    grid-template-columns: repeat(2, 1fr); /* 2 colunas no mobile */
-    gap: 12px;
-    margin-top: 2rem;
-}
+        /* BORDA BORDEAUX NO VINHO SELECIONADO */
+        .wine-option.selected {
+            border-color: var(--bordeaux);
+            background-color: #FDFCFB;
+            color: var(--bordeaux);
+            font-weight: bold;
+        }
 
-/* 3 colunas no Desktop */
-@media (min-width: 768px) {
-    .wine-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
+        .tab-btn {
+            padding: 10px 20px;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #9ca3af;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
 
-.wine-grid.active {
-    display: grid;
-}
-
-/* Estilo de cada opção de vinho */
-.wine-option {
-    padding: 15px;
-    border: 1px solid #e5e7eb;
-    background: #fff;
-    font-style: italic;
-    font-size: 13px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border-radius: 4px;
-}
-
-/* Efeito ao passar o mouse */
-.wine-option:hover {
-    border-color: #4A0E0E;
-}
-
-/* VISUAL ESPECÍFICO: Vinho selecionado */
-.wine-option.selected {
-    background-color: #F1ECE3; /* Tom creme suave */
-    border: 2px solid #4A0E0E; /* Borda Bordeaux */
-    color: #4A0E0E;    
-    font-weight: 600;
-}
-
-/* Estilo dos Botões de Categoria (Tabs) */
-.tab-btn {
-    padding: 10px 20px;
-    font-size: 11px;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    border-bottom: 2px solid transparent;
-    transition: all 0.3s;
-    color: #9ca3af;
-}
-
-.tab-btn.active {
-    color: #4A0E0E;
-    border-bottom-color: #4A0E0E;
-} 
+        .tab-btn.active {
+            color: var(--bordeaux);
+            border-bottom-color: var(--bordeaux);
+        }
     </style>
 </head>
-<body>
+<body class="bg-white">
 
     <audio id="bgMusic" loop><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-17.mp3" type="audio/mpeg"></audio>
     <button onclick="toggleMusic()" class="fixed bottom-6 right-6 z-[100] bg-white p-3 rounded-full shadow-lg border text-[10px] font-bold uppercase tracking-tighter flex items-center gap-2">
@@ -169,299 +117,56 @@ KITS CORRETO
     </button>
 
     <nav class="p-6 flex justify-between items-center bg-[#F9F7F2] border-b border-stone-200 sticky top-0 z-50">
-        <div class="flex items-center gap-3">
-            <div class="text-2xl font-bold text-bordeaux tracking-tighter uppercase">Wine Not Bloom</div>
-            <svg class="h-8 w-8 text-moss" viewbox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg">
-                <path d="M28 10V4H36V10M26 10H38V20C38 22 40 24 42 24V24C44 24 46 26 46 28V56C46 58 44 60 42 60H22C20 60 18 58 18 56V28C18 26 20 24 22 24V24C24 24 26 22 26 20V10Z"/>
-                <path d="M32 30V45M28 35L36 40M36 32L28 43" stroke-width="1" stroke-linecap="round"/>
-            </svg>
-        </div>
-        <div class="hidden md:flex space-x-6 text-[10px] font-bold uppercase tracking-widest text-moss">
+        <div class="text-2xl font-bold text-[#4A0E0E] tracking-tighter uppercase">Wine Not Bloom</div>
+        <div class="hidden md:flex space-x-6 text-[10px] font-bold uppercase tracking-widest text-stone-600">
             <a href="#about">About</a>
-            <a href="#experience">Experience</a>
             <a href="#collection">Kits</a>
             <a href="#contact">Contact</a>
         </div>
     </nav>
 
-    <header class="relative h-[70vh] flex items-center justify-center text-center px-4 overflow-hidden">
-        <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&q=80&w=2070" class="w-full h-full object-cover opacity-30">
-        </div>
+    <header class="relative h-[60vh] flex items-center justify-center text-center px-4 overflow-hidden bg-stone-100">
         <div class="relative z-10 max-w-3xl">
-            <h1 class="text-5xl md:text-7xl text-bordeaux mb-6 serif italic">Where the notes of a vintage meet the scent of a bloom.</h1>
-            <a href="#collection" class="bg-bordeaux text-white px-10 py-4 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-xl">Start Experience</a>
+            <h1 class="text-5xl md:text-7xl text-[#4A0E0E] mb-6 serif italic font-serif">Where the notes of a vintage meet the scent of a bloom.</h1>
+            <a href="#collection" class="bg-[#4A0E0E] text-white px-10 py-4 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-xl">Start Experience</a>
         </div>
     </header>
 
-    <section id="about" class="py-20 px-8 bg-white border-b border-stone-100">
-        <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-3xl text-moss mb-8 serif italic">Our Story</h2>
-            <p class="text-stone-600 leading-relaxed text-lg italic">
-                "Wine Not Bloom" was born from a shared dream between two friends. We believed that the elegance of a fine wine and the organic beauty of flowers shouldn't be separate gifts, but a single, curated sensory experience.
-            </p>
-        </div>
-    </section>
-
-    <section id="experience" class="py-32 px-8 bg-white overflow-hidden border-b border-stone-100">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-16">
-            <div class="w-full md:w-1/2 text-left">
-                <h2 class="text-4xl text-moss mb-8 italic serif leading-tight">The perfect sensory harmony.</h2>
-                <div class="space-y-6 text-stone-600 leading-relaxed text-lg italic">
-                    <p>Why choose between a bouquet and a bottle? At <strong>Wine Not Bloom</strong>, we believe the elegance of a fine wine is perfectly complemented by the organic beauty of seasonal flowers.</p>
-                    <p>Our arrangements are designed to be "table-ready"—not just a gift, but a curated centerpiece that transforms any home into a celebration of taste and aesthetics.</p>
-                    <div class="pt-6 border-t border-stone-100">
-                        <p class="text-bordeaux font-bold uppercase text-xs tracking-widest">✨ Order must be placed 72h in advance.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="w-full md:w-1/2 grid grid-cols-2 gap-4">
-                <img src="https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?auto=format&fit=crop&q=80" class="h-80 w-full object-cover rounded shadow-xl">
-                <img src="https://images.unsplash.com/photo-1528938102132-4a9276b8e320?auto=format&fit=crop&q=80" class="h-80 w-full object-cover rounded shadow-xl mt-12">
-            </div>
-        </div>
-    </section>
-
     <section id="collection" class="py-24 px-8 bg-[#F9F7F2]">
         <div class="max-w-6xl mx-auto text-center mb-16">
-            <h2 class="text-4xl text-bordeaux mb-4 serif italic">Signature Pairings</h2>
+            <h2 class="text-4xl text-[#4A0E0E] mb-4 font-serif italic">Signature Pairings</h2>
             <p class="text-stone-500 tracking-widest uppercase text-[9px] font-bold">Step 1: Select your Kit</p>
         </div>
         <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             <div class="flip-card" id="kit-gratitude" onclick="selectKit('The Gratitude', 55, 'kit-gratitude')">
                 <div class="flip-card-inner">
-                    <div class="flip-card-front relative">
+                    <div class="flip-card-front">
                         <img src="https://images.unsplash.com/photo-1533616688419-b7a585564566?auto=format&fit=crop&q=80" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-black/30 flex items-center justify-center text-white serif text-3xl italic">The Gratitude</div>
+                        <div class="absolute inset-0 bg-black/30 flex items-center justify-center text-white font-serif text-3xl italic">The Gratitude</div>
                     </div>
-                    <div class="flip-card-back text-center">
-                        <h4 class="text-lg font-bold text-bordeaux uppercase mb-4">The Gratitude</h4>
-                        <p class="text-xs italic mb-4">Soft hydrangeas & eucalyptus. Includes vase.</p>
+                    <div class="flip-card-back">
+                        <h4 class="text-lg font-bold text-[#4A0E0E] uppercase mb-4">The Gratitude</h4>
+                        <p class="text-xs italic mb-4">Soft hydrangeas & eucalyptus.</p>
                         <p class="text-xl font-bold mb-6">€55.00</p>
-                        <span class="text-[9px] bg-bordeaux text-white px-4 py-2 uppercase font-bold">Select Kit</span>
+                        <span class="text-[9px] bg-[#4A0E0E] text-white px-4 py-2 uppercase font-bold">Select Kit</span>
                     </div>
                 </div>
             </div>
             <div class="flip-card" id="kit-celebration" onclick="selectKit('The Celebration', 75, 'kit-celebration')">
                 <div class="flip-card-inner">
-                    <div class="flip-card-front relative">
+                    <div class="flip-card-front">
                         <img src="https://images.unsplash.com/photo-1530103043960-ef38714abb15?auto=format&fit=crop&q=80" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-black/30 flex items-center justify-center text-white serif text-3xl italic">The Celebration</div>
+                        <div class="absolute inset-0 bg-black/30 flex items-center justify-center text-white font-serif text-3xl italic">The Celebration</div>
                     </div>
-                    <div class="flip-card-back text-center">
-                        <h4 class="text-lg font-bold text-bordeaux uppercase mb-4">The Celebration</h4>
-                        <p class="text-xs italic mb-4">Vibrant lilies & bubbles. Includes vase.</p>
+                    <div class="flip-card-back">
+                        <h4 class="text-lg font-bold text-[#4A0E0E] uppercase mb-4">The Celebration</h4>
+                        <p class="text-xs italic mb-4">Vibrant lilies & bubbles.</p>
                         <p class="text-xl font-bold mb-6">€75.00</p>
-                        <span class="text-[9px] bg-bordeaux text-white px-4 py-2 uppercase font-bold">Select Kit</span>
+                        <span class="text-[9px] bg-[#4A0E0E] text-white px-4 py-2 uppercase font-bold">Select Kit</span>
                     </div>
                 </div>
             </div>
             <div class="flip-card" id="kit-romance" onclick="selectKit('The Romance', 95, 'kit-romance')">
                 <div class="flip-card-inner">
-                    <div class="flip-card-front relative">
-                        <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&q=80" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center text-white serif text-3xl italic">The Romance</div>
-                    </div>
-                    <div class="flip-card-back text-center">
-                        <h4 class="text-lg font-bold text-bordeaux uppercase mb-4">The Romance</h4>
-                        <p class="text-xs italic mb-4">Deep red roses & premium wine. Includes vase.</p>
-                        <p class="text-xl font-bold mb-6">€95.00</p>
-                        <span class="text-[9px] bg-bordeaux text-white px-4 py-2 uppercase font-bold">Select Kit</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-   <section id="cellar" class="py-24 px-8 bg-white opacity-30 pointer-events-none transition-all duration-700">
-    <div class="max-w-5xl mx-auto text-center">
-        <h2 class="text-4xl mb-4 serif italic">The Cellar</h2>
-        <p class="text-stone-400 text-[10px] uppercase tracking-widest mb-10">Step 2: Choose your bottle</p>
-
-        <div class="flex justify-center space-x-2 md:space-x-8 border-b border-stone-100 mb-8">
-            <button class="tab-btn" onclick="openWineTab(event, 'reds')">Reds</button>
-            <button class="tab-btn" onclick="openWineTab(event, 'whites')">Whites</button>
-            <button class="tab-btn" onclick="openWineTab(event, 'rose')">Rosé</button>
-            <button class="tab-btn" onclick="openWineTab(event, 'sparkling')">Sparkling</button>
-        </div>
-
-        <div id="reds" class="wine-grid">
-            <div class="wine-option" onclick="selectWine(this, 'Malbec (Argentina)')">Malbec (Argentina)</div>
-            <div class="wine-option" onclick="selectWine(this, 'Rioja Reserva')">Rioja Reserva</div>
-            <div class="wine-option" onclick="selectWine(this, 'Cabernet Sauvignon')">Cabernet Sauvignon</div>
-            <div class="wine-option" onclick="selectWine(this, 'Pinot Noir')">Pinot Noir</div>
-            <div class="wine-option" onclick="selectWine(this, 'Merlot')">Merlot</div>
-            <div class="wine-option" onclick="selectWine(this, 'Shiraz (Australia)')">Shiraz (Australia)</div>
-        </div>
-
-        <div id="whites" class="wine-grid">
-            <div class="wine-option" onclick="selectWine(this, 'Sauvignon Blanc')">Sauvignon Blanc</div>
-            <div class="wine-option" onclick="selectWine(this, 'Pinot Grigio')">Pinot Grigio</div>
-            <div class="wine-option" onclick="selectWine(this, 'Chardonnay')">Chardonnay</div>
-            <div class="wine-option" onclick="selectWine(this, 'Chablis')">Chablis</div>
-        </div>
-
-        <div id="rose" class="wine-grid">
-            <div class="wine-option" onclick="selectWine(this, 'Provence Rosé')">Provence Rosé</div>
-            <div class="wine-option" onclick="selectWine(this, 'Whispering Angel')">Whispering Angel</div>
-            <div class="wine-option" onclick="selectWine(this, 'Grenache Rosé')">Grenache Rosé</div>
-        </div>
-
-        <div id="sparkling" class="wine-grid">
-            <div class="wine-option" onclick="selectWine(this, 'Prosecco Treviso')">Prosecco Treviso</div>
-            <div class="wine-option" onclick="selectWine(this, 'Champagne Brut')">Champagne Brut</div>
-            <div class="wine-option" onclick="selectWine(this, 'Rosé Spumante')">Rosé Spumante</div>
-        </div>
-    </div>
-</section>
-
-    <section id="testimonials" class="py-24 px-8 bg-[#F9F7F2]">
-        <div class="max-w-6xl mx-auto text-center">
-            <h2 class="text-3xl text-moss mb-12 serif italic">Client Experiences</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="p-8 bg-white shadow-sm italic text-stone-600 text-sm">"The perfect Dublin birthday surprise. Stunning presentation." <p class="mt-4 font-bold text-bordeaux">— Sarah, D4</p></div>
-                <div class="p-8 bg-white shadow-sm italic text-stone-600 text-sm">"Ordered Romance kit for our anniversary. Speechless." <p class="mt-4 font-bold text-bordeaux">— James, D6</p></div>
-                <div class="p-8 bg-white shadow-sm italic text-stone-600 text-sm">"The table-ready concept is pure genius for hosting." <p class="mt-4 font-bold text-bordeaux">— Elena, Malahide</p></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="py-24 px-8 bg-white border-t opacity-30 pointer-events-none transition-all duration-700">
-        <div class="max-w-xl mx-auto text-center">
-            <h2 class="text-3xl text-bordeaux mb-8 serif italic">Your Order</h2>
-            <div id="summary" class="bg-cream p-8 text-left mb-8 rounded border border-stone-200">
-                <p class="text-stone-400 italic text-sm text-center">Awaiting selection...</p>
-            </div>
-            <div class="mb-10 text-left p-6 border border-stone-200 rounded bg-[#F9F7F2]">
-                <h4 class="text-[10px] font-bold uppercase text-stone-500 mb-3 tracking-widest">💳 Payment Information</h4>
-                <p class="text-[11px] text-stone-600 leading-relaxed italic">
-                    Secure Payment via <strong>Revolut</strong>, <strong>Bank Transfer</strong>, or <strong>PayPal</strong>. Details provided after confirmation.
-                </p>
-            </div>
-            <input type="email" id="email" placeholder="Contact Email" class="w-full p-4 mb-8 bg-cream border border-stone-200 text-sm">
-            <button onclick="sendOrder()" class="w-full bg-bordeaux text-white py-5 rounded-full font-bold uppercase tracking-[0.2em] text-[10px] shadow-2xl">Confirm on WhatsApp</button>
-        </div>
-    </section>
-
-    <footer class="bg-moss py-12 text-cream text-[9px] uppercase tracking-[0.4em] text-center">
-        Wine Not Bloom • Based in Dublin • <a href="https://instagram.com/winenotbloom" target="_blank" class="underline">Instagram @winenotbloom</a>
-    </footer>
-
-    <script>
-        let order = { kit: null, wine: null, price: 0 };
-        function toggleMusic() {
-            const music = document.getElementById('bgMusic');
-            const txt = document.getElementById('musicText');
-            if (music.paused) { music.play(); txt.innerText = "Jazz On"; }
-            else { music.pause(); txt.innerText = "Jazz Off"; }
-        }
-    function selectKit(name, price, id) {
-    // 1. Gerencia a borda Bordeaux nos Kits
-    document.querySelectorAll('.flip-card').forEach(card => card.classList.remove('active'));
-    const selectedCard = document.getElementById(id);
-    if (selectedCard) selectedCard.classList.add('active');
-
-    // 2. Salva os dados
-    if (typeof order !== 'undefined') {
-        order.kit = name;
-        order.price = price;
-    }
-
-    // 3. Libera a Adega e faz Scroll Suave
-    const cellar = document.getElementById('cellar');
-    if (cellar) {
-        cellar.classList.remove('opacity-30', 'pointer-events-none');
-        cellar.style.pointerEvents = 'auto'; // Ativa os cliques
-        
-        // Scroll suave após um pequeno delay para o flip completar
-        setTimeout(() => {
-            cellar.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 600);
-    }
-}
-
-// Controla as Abas de Cores (Red, White, etc)
-function openWineTab(evt, categoryId) {
-    document.querySelectorAll('.wine-grid').forEach(grid => grid.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-
-    document.getElementById(categoryId).classList.add('active');
-    evt.currentTarget.classList.add('active');
-}
-
-// Seleciona o Vinho com borda Bordeaux
-function selectWine(element, wineName) {
-    document.querySelectorAll('.wine-option').forEach(opt => opt.classList.remove('selected'));
-    element.classList.add('selected');
-    
-    if (typeof order !== 'undefined') order.wine = wineName;
-}
-
-    // Libera a próxima seção (Checkout/WhatsApp)
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-        contactSection.classList.remove('opacity-30', 'pointer-events-none');
-    }
-
-    // Atualiza o resumo se a função existir
-    if (typeof updateSummary === 'function') {
-        updateSummary();
-    }
-}
-    // 2. Adiciona a classe 'active' apenas ao card clicado (trava o giro)
-    const selectedCard = document.getElementById(id);
-    if (selectedCard) {
-        selectedCard.classList.add('active');
-    }
-
-    // 3. Salva os dados para o pedido final
-    if (typeof order !== 'undefined') {
-        order.kit = name;
-        order.price = price;
-    }
-
-    // 4. Habilita a seção da adega visualmente (opacidade), mas SEM scroll automático
-    const cellar = document.getElementById('cellar');
-    if (cellar) {
-        cellar.classList.remove('opacity-30', 'pointer-events-none', 'opacity-40');
-    }
-
-    // Atualiza o resumo de compra se a função existir
-    if (typeof updateSummary === 'function') updateSummary();
-}
-        function selectWine(wine) {
-            order.wine = wine;
-            document.querySelectorAll('.wine-option').forEach(opt => {
-                opt.classList.remove('selected');
-                if(opt.innerText === wine) opt.classList.add('selected');
-            });
-            document.getElementById('cellar').classList.add('faded');
-            document.getElementById('contact').classList.remove('opacity-30', 'pointer-events-none');
-            setTimeout(() => { document.getElementById('contact').scrollIntoView({ behavior: 'smooth' }); }, 500);
-            updateSummary();
-        }
-        function openTab(evt, tab) {
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(tab).classList.add('active'); evt.currentTarget.classList.add('active');
-        }
-        function updateSummary() {
-            const sum = document.getElementById('summary');
-            let pText = order.wine === 'GOLD REQUEST' ? "Bespoke Price" : `€${order.price}.00`;
-            if (order.kit) {
-                sum.innerHTML = `<div class="space-y-2 italic text-sm">
-                    <p><strong>Package:</strong> ${order.kit}</p>
-                    <p><strong>Bottle:</strong> ${order.wine || 'Pending selection...'}</p>
-                    <p class="text-xl font-bold mt-4 text-bordeaux not-italic">${pText}</p>
-                </div>`;
-            }
-        }
-        function sendOrder() {
-            const email = document.getElementById('email').value;
-            if(!order.kit || !order.wine || !email) return alert("Please complete selection.");
-            const msg = `Hi Wine Not Bloom! I'd like to order:%0A- Kit: ${order.kit}%0A- Bottle: ${order.wine}%0A- Email: ${email}%0A%0APlease confirm 72h window!`;
-            window.open(`https://wa.me/353851152527?text=${msg}`);
-        }
-    </script>
-</body>
-</html>
+                    <div class="flip-card-front">
+                        <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&q=80" class="w-
